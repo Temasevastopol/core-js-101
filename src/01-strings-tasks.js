@@ -19,9 +19,9 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-  if(typeof value1 !== 'string' && typeof value2 !== 'string'){
-    throw new Error('Not implemented');
-  }  
+  // if(typeof value1 !== 'string' && typeof value2 !== 'string'){
+  //   throw new Error('Not implemented');
+  // }  
   return value1 + value2 
 }
 
@@ -38,9 +38,9 @@ function concatenateStrings(value1, value2) {
  *   ''      => 0
  */
 function getStringLength(value) {
-  if(typeof value !== 'string'){
-    throw new Error('Not implemented');
-  }
+  // if(typeof value !== 'string'){
+  //   throw new Error('Not implemented');
+  // }
   return value.length
 }
 
@@ -57,8 +57,8 @@ function getStringLength(value) {
  *   'John','Doe'      => 'Hello, John Doe!'
  *   'Chuck','Norris'  => 'Hello, Chuck Norris!'
  */
-function getStringFromTemplate(/* firstName, lastName */) {
-  throw new Error('Not implemented');
+function getStringFromTemplate(firstName, lastName) {
+  return `Hello ${firstName} ${lastName}`
 }
 
 /**
@@ -71,8 +71,9 @@ function getStringFromTemplate(/* firstName, lastName */) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  // throw new Error('Not implemented');
+  return value.slice(7, -1)
 }
 
 
