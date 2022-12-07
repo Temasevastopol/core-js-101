@@ -19,7 +19,7 @@
  *   '',  'bb'  => 'bb'
  */
 function concatenateStrings(value1, value2) {
-  if(typeof value1 === 'string' && typeof value2 === 'string'){
+  if(typeof value1 !== 'string' && typeof value2 !== 'string'){
     throw new Error('Not implemented');
   }  
   return value1 + value2 
@@ -37,8 +37,11 @@ function concatenateStrings(value1, value2) {
  *   'b'     => 1
  *   ''      => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  if(typeof value !== 'string'){
+    throw new Error('Not implemented');
+  }
+  return value.length
 }
 
 /**
