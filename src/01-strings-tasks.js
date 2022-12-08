@@ -190,7 +190,7 @@ function convertToUpperCase(str) {
  */
 function extractEmails(str) {
   // throw new Error('Not implemented');
-  return str.split(';')
+  return str.split('; ')
 }
 
 /**
@@ -216,7 +216,8 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
+function getRectangleString(width, height) {
+  const topRow = ` `
   throw new Error('Not implemented');
 }
 
@@ -237,8 +238,18 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const trueStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+  const codeStr = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
+  let res = ''; index = 0;
+
+  for(let i = 0; i < str.length; i++){
+    index = trueStr.indexOf(str[i])
+    res += codeStr[index]
+  }
+
+  return res
+  // throw new Error('Not implemented');
 }
 
 /**
@@ -254,8 +265,9 @@ function encodeToRot13(/* str */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return (typeof value === 'string' || value instanceof String)
+  // throw new Error('Not implemented');
 }
 
 
@@ -283,8 +295,16 @@ function isString(/* value */) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const cardArr = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠']
+  let res;
+  res = cardArr.forEach((el, i)=>{
+    if(el == value){
+      return i
+    }
+  })
+  return res
+  // throw new Error('Not implemented');
 }
 
 
