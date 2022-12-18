@@ -18,7 +18,7 @@
  *   'aa',''    => 'aa'
  *   '',  'bb'  => 'bb'
  */
-function concatenateStrings(value1, value2) { 
+function concatenateStrings(value1, value2) {
   return value1 + value2;
 }
 
@@ -34,7 +34,7 @@ function concatenateStrings(value1, value2) {
  *   'b'     => 1
  *   ''      => 0
  */
-function getStringLength(value) {  
+function getStringLength(value) {
   return value.length;
 }
 
@@ -65,7 +65,7 @@ function getStringFromTemplate(firstName, lastName) {
  *   'Hello, John Doe!' => 'John Doe'
  *   'Hello, Chuck Norris!' => 'Chuck Norris'
  */
-function extractNameFromTemplate(value) {  
+function extractNameFromTemplate(value) {
   return value.slice(7, -1);
 }
 
@@ -80,7 +80,7 @@ function extractNameFromTemplate(value) {
  *   'John Doe'  => 'J'
  *   'cat'       => 'c'
  */
-function getFirstChar(value) {  
+function getFirstChar(value) {
   return value[0];
 }
 
@@ -95,7 +95,7 @@ function getFirstChar(value) {
  *   'cat'              => 'cat'
  *   '\tHello, World! ' => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(value) {  
+function removeLeadingAndTrailingWhitespaces(value) {
   return value.trim();
 }
 
@@ -110,7 +110,7 @@ function removeLeadingAndTrailingWhitespaces(value) {
  *   'A', 5  => 'AAAAA'
  *   'cat', 3 => 'catcatcat'
  */
-function repeatString(value, count) {  
+function repeatString(value, count) {
   return value.repeat(count);
 }
 
@@ -126,7 +126,7 @@ function repeatString(value, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(str, value) {  
+function removeFirstOccurrences(str, value) {
   return str.replace(value, '');
 }
 
@@ -141,8 +141,8 @@ function removeFirstOccurrences(str, value) {
  *   '<span>' => 'span'
  *   '<a>' => 'a'
  */
-function unbracketTag(str) {  
-  return slice(1, -1);
+function unbracketTag(str) {
+  return str.slice(1, -1);
 }
 
 
@@ -156,7 +156,7 @@ function unbracketTag(str) {
  *   'Thunderstruck' => 'THUNDERSTRUCK'
  *  'abcdefghijklmnopqrstuvwxyz' => 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
  */
-function convertToUpperCase(str) {  
+function convertToUpperCase(str) {
   return str.toUpperCase();
 }
 
@@ -175,7 +175,7 @@ function convertToUpperCase(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(str) {  
+function extractEmails(str) {
   return str.split(';');
 }
 
@@ -203,8 +203,10 @@ function extractEmails(str) {
  *
  */
 function getRectangleString(width, height) {
-  const topRow = ` `
-  
+  const topRow = `┌${'─'.repeat(width - 2)}┐\n`;
+  const centerRow = `│${' '.repeat(width - 2)}│\n`;
+  const endRow = `└${'─'.repeat(width - 2)}┘\n`;
+  return topRow + centerRow.repeat(height - 2) + endRow;
 }
 
 
@@ -225,16 +227,13 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-  const trueStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  const codeStr = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
-  let res = ''; index = 0;
-
-  for(let i = 0; i < str.length; i++){
-    index = trueStr.indexOf(str[i]);
-    res += codeStr[index];
-  }
-
-  return res;  
+  return str.split('').map((char) => {
+    const startCharCode = (char < 'a' ? 'A' : 'a').charCodeAt(0);
+    if ((char >= 'A' && char <= 'Z') || (char >= 'a' && char <= 'z')) {
+      return String.fromCharCode(((char.charCodeAt(0) - startCharCode + 13) % 26) + startCharCode);
+    }
+    return char;
+  }).join('');
 }
 
 /**
@@ -251,8 +250,7 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-  return (typeof value === 'string' || value instanceof String);
-  
+  return typeof value === 'string' || value instanceof String;
 }
 
 
@@ -281,18 +279,12 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-  const cardArr = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣','A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦','A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥','A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
-  let res;
-  res = cardArr.forEach((el, i)=>{
-    if(el == value){
-      return i;
-    }
-  })
-  return res;
-  
+  const suits = '♣♦♥♠';
+  const numbers = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  const cardSuit = value[value.length - 1];
+  const cardNumber = value.slice(0, -1);
+  return numbers.indexOf(cardNumber) + 13 * suits.indexOf(cardSuit);
 }
-
-
 module.exports = {
   concatenateStrings,
   getStringLength,
